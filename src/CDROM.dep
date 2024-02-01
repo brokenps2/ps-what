@@ -1,6 +1,0 @@
-src/CDROM.o: src/CDROM.c /home/eli/geodash-psx/psyq/include/stdio.h \
- /home/eli/geodash-psx/psyq/include/string.h \
- /home/eli/geodash-psx/psyq/include/strings.h \
- /home/eli/geodash-psx/psyq/include/memory.h \
- /home/eli/geodash-psx/psyq/include/sys/types.h \
- /home/eli/geodash-psx/psyq/include/libcd.h

@@ -1,5 +1,4 @@
-SRCS = src/CDROM.c src/Main.c
-
+SRCS = $(wildcard src/*.c)
 TARGET = bin/prog
 
 include common.mk

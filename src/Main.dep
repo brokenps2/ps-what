@@ -1,6 +1,0 @@
-src/Main.o: src/Main.c /home/eli/geodash-psx/psyq/include/stdio.h \
- /home/eli/geodash-psx/psyq/include/sys/types.h \
- /home/eli/geodash-psx/psyq/include/libgte.h \
- /home/eli/geodash-psx/psyq/include/libgpu.h \
- /home/eli/geodash-psx/psyq/include/libetc.h \
- /home/eli/geodash-psx/psyq/include/libcd.h
