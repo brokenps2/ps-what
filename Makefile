@@ -1,4 +1,5 @@
-SRCS = src/*.c
+SRCS = src/CDROM.c src/Main.c
+
 TARGET = bin/prog
 
 include common.mk
@@ -9,4 +10,3 @@ cd:
 	mkpsxiso -y cddir/isoconfig.xml
 	mv cd.bin cddir/
 	mv cd.cue cddir/
-
