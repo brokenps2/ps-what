@@ -12,6 +12,7 @@
 sprite spr;
 sprite bg;
 sprite clouds;
+int back = 0;
 
 int pad = 0;
 
@@ -36,12 +37,15 @@ int main() {
 
   init();
 
-  clouds = createSprite("\\PSXIMG.TIM;1", 120, 120, 120, 32, 0, 160, 120);
+  clouds = createSprite("\\PSXIMG.TIM;1", 120, 120, 120, 120, 15, 160, 120);
   bg = createSprite("\\SET.TIM;1", 128, 128, 128, 0, 0, 320, 240);
   spr = createSprite("\\WBGND.TIM;1", 128, 128, 128, 64, 64, 64, 64);
   loadTexture(clouds.tfile, &clouds.tim);
   loadTexture(bg.tfile, &bg.tim);
   loadTexture(spr.tfile, &spr.tim);
+
+  FntLoad(960, 0);
+  FntOpen(280, 8, 320, 224, 0, 100);
 
   if(testCDLoad()) { return 1; }
 
@@ -49,15 +53,33 @@ int main() {
 
     ClearOTagR(ot[db], OTLEN);
 
-    updateSprite(clouds);
     updateSprite(spr);
+    updateSprite(clouds);
     updateSprite(bg);
 
     pad = PadRead(0);
-    if(pad & PADLup) spr.y -= 1;
-    if(pad & PADLdown) spr.y += 1;
-    if(pad & PADLright) spr.x += 1;
-    if(pad & PADLleft) spr.x -= 1;
+    if(pad & PADLup) spr.y -= 2;
+    if(pad & PADLdown) spr.y += 2;
+    if(pad & PADLright) spr.x += 2;
+    if(pad & PADLleft) spr.x -= 2;
+
+    if(!back) {
+      clouds.w += 1;
+      clouds.h += 1;
+      clouds.x += 1;
+      clouds.y -= 2;
+      if(clouds.w >= 160) back = !back;
+    } else {
+      clouds.w -= 1;
+      clouds.h -= 1;
+      clouds.x -= 1;
+      clouds.y += 2;
+      if(clouds.w <= 64) back = !back;
+    }
+
+    FntPrint("FART!");
+
+    FntFlush(-1);
 
     updateDisplay();
 

@@ -9,6 +9,8 @@ extern u_long ot[2][OTLEN];
 extern int db;
 
 typedef struct sprite {
+  char* name;
+  int id;
   u_long* tfile;
   SPRT* sprt;
   DR_TPAGE* tpage;
