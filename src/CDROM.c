@@ -4,6 +4,8 @@
 #include <sys/types.h>
 #include <libcd.h>
 
+int fileno = 0;
+
 int testCDLoad() {
   
   CdlFILE file;
@@ -12,6 +14,8 @@ int testCDLoad() {
   if(!CdSearchFile(&file, "\\COOL.TXT;1")) {
     printf( "File not found.\n" ); 
     return 1;
+  } else {
+    fileno += 1;
   }
 
   buffer = (u_long*)malloc3( 2048*((file.size+2047)/2048) );
@@ -34,6 +38,9 @@ u_long* loadFileFromCD(char* filename) {
   if(!CdSearchFile(&file, filename)) {
     printf( "File not found.\n" ); 
     return NULL;
+  } else {
+    fileno += 1;
+    printf("found file %i\n", fileno);
   }
 
   buffer = (u_long*)malloc3( 2048*((file.size+2047)/2048) );
