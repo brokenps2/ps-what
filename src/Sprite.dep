@@ -1,0 +1,3 @@
+src/Sprite.o: src/Sprite.c /home/eli/geodash-psx/psyq/include/libgte.h \
+ /home/eli/geodash-psx/psyq/include/libgpu.h \
+ /home/eli/geodash-psx/psyq/include/libetc.h
