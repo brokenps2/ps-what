@@ -50,4 +50,6 @@ u_long* loadFileFromCD(char* filename) {
 
   return buffer;
 
+  free(buffer);
+
 }

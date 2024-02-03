@@ -6,8 +6,10 @@
 #include <libetc.h>
 #include <libcd.h>
 #include <libpad.h>
+#include <libspu.h>
 #include "CDROM.h"
 #include "Graphics.h"
+#include "Sound.h"
 
 sprite spr;
 sprite bg;
@@ -15,6 +17,7 @@ sprite clouds;
 int back = 0;
 
 int pad = 0;
+int cld = 1;
 
 char heap[1024 * 1024];
 
@@ -31,6 +34,8 @@ void init() {
   InitHeap3(heap, sizeof(heap));
 
   initGraphics();
+
+  initSound();
 }
 
 int main() {
@@ -45,9 +50,11 @@ int main() {
   loadTexture(spr.tfile, &spr.tim);
 
   FntLoad(960, 0);
-  FntOpen(280, 8, 320, 224, 0, 100);
+  FntOpen(32, 32, 320, 224, 0, 100);
 
   if(testCDLoad()) { return 1; }
+
+  loadSound("\\DING.VAG;1", 100, SPU_1CH, 1);
 
   while(1) {
 
@@ -62,6 +69,7 @@ int main() {
     if(pad & PADLdown) spr.y += 2;
     if(pad & PADLright) spr.x += 2;
     if(pad & PADLleft) spr.x -= 2;
+    if(pad & PADLright) playLoadedSnd();
 
     if(!back) {
       clouds.w += 1;
@@ -76,8 +84,10 @@ int main() {
       clouds.y += 2;
       if(clouds.w <= 64) back = !back;
     }
+    
+    
 
-    FntPrint("FART!");
+    FntPrint("world best ps1 game");
 
     FntFlush(-1);
 
