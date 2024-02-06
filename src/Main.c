@@ -13,7 +13,6 @@
 
 sprite spr;
 sprite bg;
-sprite clouds;
 int back = 0;
 
 int pad = 0;
@@ -46,10 +45,8 @@ int main() {
 
   init();
 
-  clouds = createSprite("\\PSXIMG.TIM;1", 120, 120, 120, 120, 15, 160, 120);
-  bg = createSprite("\\SET.TIM;1", 128, 128, 128, 0, 0, 320, 240);
-  spr = createSprite("\\WBGND.TIM;1", 128, 128, 128, 64, 64, 64, 64);
-  loadTexture(clouds.tfile, &clouds.tim);
+  bg = createSprite("\\GDBG.TIM;1", 128, 128, 128, 0, 0, 320, 240);
+  spr = createSprite("\\GDPL.TIM;1", 128, 128, 128, 24, 24, 24, 24);
   loadTexture(bg.tfile, &bg.tim);
   loadTexture(spr.tfile, &spr.tim);
 
@@ -70,7 +67,6 @@ int main() {
     ClearOTagR(ot[db], OTLEN);
 
     updateSprite(spr);
-    updateSprite(clouds);
     updateSprite(bg);
 
     pad = PadRead(0);
@@ -81,23 +77,7 @@ int main() {
     if(pad & PADLright) playSnd(&snd);
     if(pad & PADLleft) playSnd(&din);
 
-    if(!back) {
-      clouds.w += 1;
-      clouds.h += 1;
-      clouds.x += 1;
-      clouds.y -= 2;
-      if(clouds.w >= 160) back = !back;
-    } else {
-      clouds.w -= 1;
-      clouds.h -= 1;
-      clouds.x -= 1;
-      clouds.y += 2;
-      if(clouds.w <= 64) back = !back;
-    }
-    
-
-
-    FntPrint("world best ps1 game");
+    FntPrint("gdpsx");
 
     FntFlush(-1);
 
