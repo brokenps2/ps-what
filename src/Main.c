@@ -21,6 +21,8 @@ int cld = 1;
 
 char heap[1024 * 1024];
 
+VAGsound snd;
+VAGsound din;
 
 void init() {
 
@@ -30,12 +32,14 @@ void init() {
   printf("CD Initialized.\n");
   PadInit(0);
   printf("controller initialized\n");
+  SpuInit();
+  printf("spu initialized\n");
 
   InitHeap3(heap, sizeof(heap));
 
   initGraphics();
+  initSnd();
 
-  initSound();
 }
 
 int main() {
@@ -54,7 +58,12 @@ int main() {
 
   if(testCDLoad()) { return 1; }
 
-  loadSound("\\DING.VAG;1", 100, SPU_1CH, 1);
+  
+  snd = createSound("\\LC.VAG;1", SPU_0CH, 0);
+  snd.spuAddr = setSPUtransfer(&snd);
+
+  din = createSound("\\DING.VAG;1", SPU_1CH, 0);
+  din.spuAddr = setSPUtransfer(&din);
 
   while(1) {
 
@@ -69,7 +78,8 @@ int main() {
     if(pad & PADLdown) spr.y += 2;
     if(pad & PADLright) spr.x += 2;
     if(pad & PADLleft) spr.x -= 2;
-    if(pad & PADLright) playLoadedSnd();
+    if(pad & PADLright) playSnd(&snd);
+    if(pad & PADLleft) playSnd(&din);
 
     if(!back) {
       clouds.w += 1;
@@ -85,7 +95,7 @@ int main() {
       if(clouds.w <= 64) back = !back;
     }
     
-    
+
 
     FntPrint("world best ps1 game");
 
